@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>alphabet</title>
+	<script src="http://maps.googleapis.com/maps/api/js"></script>
+	<script>
+	function initialize() {
+		var mapProp = {
+			center:new google.maps.LatLng(40.7398848,-73.9900818),
+			zoom:16,
+			disableDefaultUI:true,
+			mapTypeId:google.maps.MapTypeId.ROADMAP
+		};
+		var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+	</script>
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<style type="text/css">
+	body{
+		background: url("/img/2.png");
+		background-repeat: repeat;
+		color: white;
+		font-family: Volkorn;
+	}
+	a {
+		text-decoration: none;
+		color: red;
+	}
+	.post{
+		margin-top: 50px;
+		margin-left: 15px;
+	}
+	.link1{
+			padding-right: 250px;
+	}
+	.pure-menu-horizontal {
+        background-color: #ffd390;
+    }
+    .vote_system {
+    	width: 50px;
+    }
+    .main_info{
+    	position: relative;
+    	left: 50px;
+    	bottom: 50px;
+    }
+	</style>
+</head>
+<body>
+
+	<div class="pure-menu pure-menu-horizontal">
+	<ul class="pure-menu-list">
+	    <li class="pure-menu-item pure-menu-selected"><a href="/" class="pure-menu-link link1">Home</a></li>
+		<li class="pure-menu-item"> <a href="/forums/new" class="pure-menu-link">Create a forum</a></li>
+		<li class="pure-menu-item"> <a href="/forums" class="pure-menu-link">See All forums</a></li>
+	    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+			<a href="/forms/top" id="menuLink1" class="pure-menu-link">See Top Forms</a>
+	        <ul class="pure-menu-children">
+	            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Votes</a></li>
+				<li class="pure-menu-item"><a href="#" class="pure-menu-link"># of comments</a></li>
+				<li class="pure-menu-item"><a href="#" class="pure-menu-link">Topics</a></li>
+	        </ul>
+	    </li>    
+		<li class="pure-menu-item"> <a href="/forums/topics" class="pure-menu-link">Browse topics</a></li>
+	</ul>
+	</div>
+
+<div id="googleMap" style="width:500px;height:380px;"></div>
+<% posts.forEach(function (el){ %>
+	<div class="post">
+		<div class="vote_system">
+				<form method="POST" action="/forums?_method=PUT">
+					<input type="hidden" name="forum" value="<%= el.id %>">
+					<input type="hidden" name="current_vote" value="<%= el.votes %>">
+					<input type="hidden" name="vote" value="1">
+					<button type="submit"> <i class="fa fa-arrow-up fa-2x"></i> </button> 
+				</form>
+				<%= el.votes %>
+				<br>
+				<form method="POST" action="/forums?_method=PUT">
+					<input type="hidden" name="forum" value="<%= el.id %>">
+					<input type="hidden" name="current_vote" value="<%= el.votes %>">
+					<input type="hidden" name="vote" value="-1">
+					<button type="submit"> <i class="fa fa-arrow-down fa-2x"></i> </button> 
+				</form>
+		</div>
+	<div class="main_info">		
+	User: <%= el.user_id %> 
+	Created on: <%= el.created_on %><br>
+	Title :<a href="/forums/<%=el.id %>"><%= el.title %>
+	</a>
+	
+	Topic :<%= el.topic %><br>
+	Total Comments: <%= el.total_comments %><br>
+	</div>
+	</div>
+<% }); %>
+
+
+</body>
+</html>

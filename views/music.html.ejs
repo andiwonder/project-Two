@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<title></title>
+	<style type="text/css">
+	body{
+		background: url("/img/bg/10.png");
+	}
+	.album_display{
+		border: 1px solid black;
+		position: absolute;
+	}
+	#main_container{
+		margin: 0 auto;
+		width: 960px;
+		height: 480px;
+		border: 5px solid red;
+	}
+	#container1{
+		position: relative;
+		width: 480px;
+		height: 480px;
+	}
+	#comment_field{
+		margin-top: 100px;
+		margin-left: 100px;
+	}
+	.shmee{
+		display: none;
+		margin-top: 100px;
+		width: 100vw;
+		height: 100vh;
+	}
+	#reward_panel{
+		margin-top: 50px;
+		margin-left: 100px;
+	}
+	.video1{
+		color: white;
+		border-radius: 4px;
+		text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+		background: rgb(202, 60, 60); 
+	}
+	.video2{
+ 		background: rgb(28, 184, 65);
+	}
+	.video3{
+		background: rgb(66, 184, 221);
+	}
+	#comment_field{
+		display: none;
+		color: black;
+	}
+	.comment_toggle{
+		display: block;
+		margin-top: 100px;
+		margin-left: 100px;
+		border: 0;
+		background: none;
+		outline: 0;
+	}
+	#info_section{
+		display: inline-block;
+		width: 100%;
+	}
+	#biography{
+		display: inline-block;
+		border: 1px solid black;
+		width: 700px;
+		height: 350px;
+	}
+	#spotify_play{
+		margin-top: 100px;
+		margin-left: 100px;
+	}
+
+	</style>
+</head>
+<body>
+
+	<div id="main_container">
+		<div class="container" id="container1">
+			<% tracks.forEach(function (el,index){ %>
+			<div id="<%=el.id%>" class="animated bounceInLeft squares hide-text album_display" style="<%=el.attributes%>" >	
+			</div>
+			<%	}) %>
+		</div>
+	</div>
+
+	<div id="info_section">
+
+	<iframe id="spotify_play" src="https://embed.spotify.com/?uri=spotify:user:1218489850:playlist:20uItakRpIglO3ikXclbrH" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
+
+	<div id="biography">
+		
+	</div>
+
+	</div>
+
+	<div id="reward_panel">
+		<button class="pure-button video1">
+			<i class="fa fa-video-camera"></i>
+			Video 1
+		</button>
+		<button class="pure-button video2">
+			<i class="fa fa-video-camera"></i>
+			Video 2
+		</button>
+		<button class="pure-button video3">
+			<i class="fa fa-video-camera"></i>
+			Video 3
+		</button>
+	</div>
+
+	<div class="shmee" id ="video1">
+		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/rVeMiVU77wo?rel=0&showinfo=0&controls=0&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<div class="shmee" id ="video2">
+		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/npvNPORFXpc?rel=0&showinfo=0&controls=0&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<div class="shmee" id ="video3">
+		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/axTSc3e6wu8?rel=0&showinfo=0&controls=0&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+	<button class="comment_toggle" type="button"><h2>Enter a comment</h2></button>
+	<div id="comment_field">
+		<form method="POST" action="/forums">
+			User-name:
+			<input name="user_name" type="text"><br>
+			<input name="forum_id" type="hidden"><br>
+			<textarea name="comment" cols="80" rows="5"></textarea><br>
+			<input type="submit"> 
+		</form>
+	</div>
+
+	<script type="text/javascript" src="/javascripts/jq2.js"></script>
+
+</body>
+</html>

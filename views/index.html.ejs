@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Forum</title>
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<style type="text/css">
+	body{
+		color: white;
+		font-family: Volkorn;
+	}
+	iframe {
+		position: absolute;
+		z-index: -1;
+	}
+		.link1{
+			padding-right: 250px;
+		}
+		.pure-menu-horizontal {
+            background-color: #ffd390;
+            position: relative;
+            z-index: 1;
+        }
+	</style>
+</head>
+<body>
+<!-- 	<iframe id="ytplayer" type="text/html" width="720" height="405"
+src="https://www.youtube.com/embed/M7lc1UVf-VE"
+frameborder="0" allowfullscreen> -->
+
+
+	<div class="pure-menu pure-menu-horizontal">
+	<ul class="pure-menu-list">
+	    <li class="pure-menu-item pure-menu-selected"><a href="/" class="pure-menu-link link1">Home</a></li>
+		<li class="pure-menu-item"> <a href="/forums/new" class="pure-menu-link">Create a forum</a></li>
+		<li class="pure-menu-item"> <a href="/forums" class="pure-menu-link">See All forums</a></li>
+	    <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+			<a href="/forms/top" id="menuLink1" class="pure-menu-link">See Top Forms</a>
+	        <ul class="pure-menu-children">
+	            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Email</a></li>
+	            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Twitter</a></li>
+	            <li class="pure-menu-item"><a href="#" class="pure-menu-link">Tumblr Blog</a></li>
+	        </ul>
+	    </li>    
+		<li class="pure-menu-item"> <a href="/forums/topics" class="pure-menu-link">Browse topics</a></li>
+	</ul>
+	</div>
+
+
+<iframe width="100%" height="96%" src="https://www.youtube.com/embed/<%=link%>autoplay=1&rel=0&showinfo=0&controls=0&iv_load_policy=3" frameborder="0" allowfullscreen></iframe>
+
+<p>Awesome!</p>
+
+
+</body>
+</html>

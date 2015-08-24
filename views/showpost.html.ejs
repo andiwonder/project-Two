@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+	<style type="text/css">
+	body{
+		background: url("/img/2.png");
+		background-repeat: repeat;
+		color: white;
+		font-family: Volkorn;
+	}
+	.comment{
+		margin-top: 0px;
+		width: 40%;
+		height: auto;
+		margin-left: 2%;
+		border: 1px solid white;
+		margin-bottom: 10px;
+	}
+	button {
+		border: 0;
+		background: none;
+		outline: 0;
+	}
+	.link1{
+		padding-right: 250px;
+	}
+	.pure-menu-horizontal , .pure-menu-children {
+		background-color: rgba(255, 211, 144,1);
+	}
+	.vote_system{
+		display: inline-block;
+	}
+	.vote {
+		display: inline-block;
+		position: relative;
+		bottom: 20px;
+	}
+	.vote_comment {
+		display: inline-block;
+		position: relative;
+		bottom: 10px;
+	}
+	.fa-arrow-up {
+		color: green;
+	}
+	.fa-arrow-down{
+		color: red;
+	}
+	.user{
+		margin-left: 50px;
+		position: relative;
+		bottom: 40px;
+		left: 45px;
+	}
+	.user_comment{
+		display: inline-block;
+		margin-left: 10px;
+		position: relative;
+	}
+	.title{
+		display: inline-block;
+		position: relative;
+		bottom: 20px;
+		left: 30px;
+	}
+	.content{
+		width: 40%;
+	}
+	#comment_field{
+		display: none;
+		color: black;
+	}
+	#main_section {
+		margin-left: 20px;
+		margin-top: 100px;
+	}
+	#header {
+		position: fixed;
+		width: 100%;
+		z-index: 1;
+		top: 0;
+		left: 0;
+	}
+	</style>
+</head>
+<body>	
+	<div id="header">
+		<div class="pure-menu pure-menu-horizontal">
+			<ul class="pure-menu-list">
+				<li class="pure-menu-item pure-menu-selected"><a href="/" class="pure-menu-link link1">Home</a></li>
+				<li class="pure-menu-item"> <a href="/forums/new" class="pure-menu-link">Create a forum</a></li>
+				<li class="pure-menu-item"> <a href="/forums" class="pure-menu-link">See All forums</a></li>
+				<li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover">
+					<a href="/forms/top" id="menuLink1" class="pure-menu-link">See Top Forms by</a>
+					<ul class="pure-menu-children">
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Votes</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link"># of comments</a></li>
+						<li class="pure-menu-item"><a href="#" class="pure-menu-link">Topics</a></li>
+					</ul>
+				</li>    
+				<li class="pure-menu-item"> <a href="/forums/topics" class="pure-menu-link">Browse topics</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="main_section">
+		<div class="post">
+			<div class="vote_system">
+				<form method="POST" action="/forums/<%= post.id %>?_method=PUT">
+					<input type="hidden" name="forum" value="<%= post.id %>">
+					<input type="hidden" name="current_vote" value="<%= post.votes %>">
+					<input type="hidden" name="vote" value="1">
+					<button type="submit"> <i class="fa fa-arrow-up fa-2x"></i> </button> 
+				</form>
+				<form method="POST" action="/forums/<%= post.id %>?_method=PUT">
+					<input type="hidden" name="forum" value="<%= post.id %>">
+					<input type="hidden" name="current_vote" value="<%= post.votes %>">
+					<input type="hidden" name="vote" value="-1">
+					<button type="submit"> <i class="fa fa-arrow-down fa-2x"></i> </button> 
+				</form>
+			</div>
+			<h2 class="vote"><%= post.votes %> </h2>
+			<h1 class="title"> <%= post.title %> </h1>
+			<div class="user">
+				Submitted: <%= post.created_on %> 
+				by: <%= post.user_id %>
+				in: <%= post.topic %>
+			</div>
+			Content :<p class="content"><%= post.content %> <br></p>
+			Last updated:<%= post.last_updated %>
+		</div>
+
+		<button class="comment_toggle" type="button"><h2>Enter a comment</h2></button>
+		
+		<div id="comment_field">
+			<form method="POST" action="/forums/<%= post.id %>">
+				User-name:
+				<input name="user_name" type="text"><br>
+				<input name="forum_id" type="hidden" value="<%=post.id %>"><br>
+				<textarea name="comment" cols="80" rows="5"></textarea><br>
+				<input type="submit"> 
+			</form>
+		</div>
+
+		<% comments.forEach(function(el){ %>
+		<div id="<%=el.id%>" class="comment">
+			<div class="vote_system">
+				<form method="POST" action="/forums/<%= post.id %>/comments?_method=PUT">
+					<input type="hidden" name="forum" value="<%= post.id %>">
+					<input type="hidden" name="comment" value="<%= el.id %>">
+					<input type="hidden" name="current_vote" value="<%= el.votes %>">
+					<input type="hidden" name="vote" value="1">
+					<button type="submit"> <i class="fa fa-thumbs-up fa-1x"></i> </button>
+				</form>
+				<form method="POST" action="/forums/<%= post.id %>/comments?_method=PUT">
+					<input type="hidden" name="forum" value="<%= post.id %>">
+					<input type="hidden" name="comment" value="<%= el.id %>">
+					<input type="hidden" name="current_vote" value="<%= el.votes %>">
+					<input type="hidden" name="vote" value="-1">
+					<button type="submit"> <i class="fa fa-thumbs-down fa-1x"></i> </button>
+				</form>
+			</div>
+			<h2 class="vote_comment"> <%= el.votes  %> </h2>
+			<div class="user_comment">
+				<%= el.creator  %>
+				<%= el.time_posted %><br>
+				<%= el.content  %> <br>
+			</div>			
+		</div>
+		<% }); %>
+	</div>
+
+</body>
+<script type="text/javascript" src="/javascripts/jq.js"></script>
+</html>
